@@ -1,19 +1,14 @@
 #!/bin/bash
 set -ex
 
-RUN_FLUXBOX=${RUN_FLUXBOX:-yes}
-RUN_XTERM=${RUN_XTERM:-yes}
+export HOME=/root
+export DEBIAN_FRONTEND=noninteractive
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=C.UTF-8
+export DISPLAY=:99
+export DISPLAY_WIDTH=1920
+export DISPLAY_HEIGHT=1080
+export WEBSOCKIFY_PORT=8090
 
-case $RUN_FLUXBOX in
-  false|no|n|0)
-    rm -f /app/conf.d/fluxbox.conf
-    ;;
-esac
-
-case $RUN_XTERM in
-  false|no|n|0)
-    rm -f /app/conf.d/xterm.conf
-    ;;
-esac
-
-exec supervisord -c /app/supervisord.conf
+exec supervisord -c ./supervisord.conf
